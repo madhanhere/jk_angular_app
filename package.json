@@ -6,7 +6,9 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "deploy": "npm run build && terraform apply",
+    "deploy-prod": "npm run build --prod && terraform apply"
   },
   "private": true,
   "dependencies": {
