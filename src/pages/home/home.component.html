@@ -2,7 +2,11 @@
   <div class="flex flex-col px-16 py-10">
     <div class="flex flex-row justify-between items-baseline align-baseline">
       <h4>Home</h4>
-      <button mat-button (click)="logout()">Logout</button>
+      <div class="flex flex-row items-baseline px-4">
+        <img [src]="profile.picture" class="w-4 h-4 mr-4">
+        <h4>{{ profile?.firstName + " " + profile.lastName }}</h4>
+        <button mat-button class="ml-4" (click)="logout()">Logout</button>
+      </div>
     </div>
 
     <div>
@@ -32,19 +36,25 @@
 
     <div>
       <mat-accordion
-        *ngFor="let item of postList?.posts; index as i"
+        *ngFor="let post of postList?.posts; index as i"
         class="m-3"
       >
         <mat-expansion-panel hideToggle [expanded]="true">
           <mat-expansion-panel-header>
             <mat-panel-title>
-              <a [href]="'post/' + item.id">{{item.title}}</a>
+              <div class="flex flex-col">
+                <div class="flex flex-row items-baseline align-baseline">
+                  <img [src]="post.user.picture" class="w-4 h-4 mr-4">
+                  <h5 class="mr-4">{{post.user.firstName}}</h5>
+                </div>
+                <a [href]="'post/' + post.id">{{post.title}}</a>
+              </div>
             </mat-panel-title>
-            <mat-icon class="mx-6" (click)="goToPostDetailComp(item.id)">open_in_new</mat-icon>
+            <mat-icon class="mx-6" (click)="goToPostDetailComp(post.id)">open_in_new</mat-icon>
           </mat-expansion-panel-header>
-          <p class="break-words">{{item.content}}</p>
-          <p class="text-wrap">on {{ item.createdAt | date }}</p>
-          <p>by {{ item.user.firstName }}</p>
+          <p class="break-words">{{post.content}}</p>
+          <p class="text-wrap">on {{ post.createdAt | date }}</p>
+          <p>by {{ post.user.firstName }}</p>
         </mat-expansion-panel>
       </mat-accordion>
 

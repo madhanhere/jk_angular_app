@@ -18,6 +18,7 @@ import {MatExpansionModule} from '@angular/material/expansion';
 import { PostService as PostsService } from '../../api/post.service';
 import { PostList } from '../../interface/post';
 import { Router } from '@angular/router';
+import { User } from '../../interface/user';
 
 @Component({
   selector: 'app-home',
@@ -43,12 +44,21 @@ export class HomeComponent implements OnInit {
   showCreate: boolean = false;
   createPostForm: FormGroup = this.builder.group({});
   readonly panelOpenState = signal(false);
+  profile!: User;
 
   constructor(
     private postsService: PostsService,
     private builder: FormBuilder,
     private router: Router,
-  ) {}
+  ) {
+    this.profile = this.getProfile();
+  }
+
+  getProfile() {
+    const user = localStorage.getItem("user");
+    if (user === null) return null;
+    return JSON.parse(user);
+  }
 
   setupForm() {
     this.showCreate = true;

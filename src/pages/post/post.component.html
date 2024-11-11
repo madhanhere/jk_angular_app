@@ -1,12 +1,14 @@
 @if (post) {
 <div class="flex flex-col p-16" style="height: 100vh">
   <a mat-raised-button href="/" class="w-20">Home</a>
-  <div class="flex-col m-1">
+  <div class="flex-col m-1 mt-5">
+    <div class="flex flex-row items-baseline align-baseline">
+      <img [src]="post.user?.picture" class="w-4 h-4 mr-4">
+      <span>{{ post.user?.firstName ?? "-" }}</span>
+    </div>
+    <span class="italic">{{ post.createdAt | date }}</span>
     <h1>{{ post.title }}</h1>
     <h4 class="break-words">{{ post.content }}</h4>
-
-    <p>Created By {{ post.user?.firstName ?? "-" }}</p>
-    <p>Date: {{ post.createdAt | date }}</p>
   </div>
 </div>
 } @else {
